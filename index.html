@@ -1,0 +1,906 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"> 
+    <link rel="stylesheet" href="css/rangeslider.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/owl.carousel.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="js/nav.js"></script>
+    <!-- <script src="js/charts.js"></script> -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.bundle.min.js"></script>
+    <script type="text/javascript" src="js/chart1.js"></script>
+<script>
+   function plot(start, finish, callback) {
+  var result = []
+  for (var i = start; i < finish; i++) {
+    result.push(callback(i));
+  }
+  return result;
+}
+
+var margin = {left: 40, top: 40, right: 40, bottom: 40}
+,   width = 800
+,   height = 600
+,   x = d3.time.scale().range([margin.left, margin.left + width]).domain([0, 1000])
+,   y = d3.time.scale().range([margin.top + height, margin.top]).domain([-40, 40])
+,   xAxis = d3.svg.axis().scale(x).tickSize(0).tickPadding(8).tickFormat(d3.format(",.0f"))
+,   yAxis = d3.svg.axis().scale(y).ticks(4).orient('left').tickSize(-width).tickFormat(d3.format(",.0f"))
+,   line = d3.svg.line().x(function(d) { return x(d[0]) }).y(function(d) { return y(d[1]) })
+,   values = plot(-3, 1003, function(x) { return [x, (Math.sin(x / 100) * 20)] })
+;
+
+var chart = d3.select('[data-chart]');
+
+var svg = chart.append('svg')
+  .attr('width', width + margin.left + margin.right) 
+  .attr('height', height + margin.top + margin.bottom)
+;
+
+var clip = svg.append('clipPath')
+  .attr("id", "clip")
+  .append("rect")
+    .attr("x", margin.left)
+    .attr("y", margin.top)
+    .attr("width", width)
+    .attr("height", height)
+;
+
+var path = svg.append("path")
+  .attr("clip-path", "url(#clip)")
+  .attr('d', line(values))
+  .attr('fill', 'none')
+  .attr('stroke', 'red')
+  .attr('stroke-width', '8')
+  .attr('stroke-dasharray', '0 4000')
+;
+
+path
+  .attr('stroke-dasharray', '0 1500')
+  .transition().duration(1500)
+    .attr('stroke-dasharray', '1500 1500')
+;
+
+var xa = svg.append('g')
+  .attr("class", "x axis")
+  .attr('transform', 'translate(0,' + (height + margin.top + 4) + ')')
+  .call(xAxis)
+;
+
+var ya = svg.append('g')
+  .attr("class", "y axis")
+  .attr('transform', 'translate(' + margin.left + ',0)')
+  .call(yAxis)
+;
+
+svg.on('click', function() {
+  path
+    .attr('stroke-dasharray', '0 1500')
+    .transition().duration(1500)
+      .attr('stroke-dasharray', '1500 1500')
+  ;
+});
+
+</script>
+    <title>Trip Jero</title>
+  </head>
+  <body>
+    
+<!-- -----------------------------navbar------------------ -->
+<nav class="main-menu">
+   <d class="d-flex" style="display: ;"> 
+      <a  class="navbar-brand m-3" href="">
+         <img src="img/dashboard/LOGO-TRIP.png" alt="">
+      </a>
+      <a  class="navbar-brand m-3" href="">
+         <img src="img/dashboard/logo/logos.png" alt="">
+      </a>
+    
+  </d>
+   <ul>
+  
+     
+       <li>
+           <a href="">
+            <i class="fa fa-home fa-custom" aria-hidden="true"></i>
+
+               <span class="nav-text">
+                  Home
+               </span>
+           </a>
+         
+       </li>
+       <li>
+           <a href="">
+            <i class="fa fa-custom fa-location-arrow" aria-hidden="true"></i>
+
+
+               <span class="nav-text">
+                  Post Trip
+               </span>
+           </a>
+         
+       </li>
+       <li>
+           <a href="">
+            <i class="fa fa-custom fa-check-circle" aria-hidden="true"></i>
+
+
+
+               <span class="nav-text">
+                  My Bookings
+               </span>
+           </a>
+         
+       </li>
+       <li>
+           <a href="">
+            
+
+            <i class="fa fa-custom fa-bus" aria-hidden="true"></i>
+
+
+               <span class="nav-text">
+                  My Trips
+               </span>
+           </a>
+         
+       </li>
+       <li>
+           <a href="#">
+            
+
+            <i class="fa fa-custom fa-plane" aria-hidden="true"></i>
+
+
+               <span class="nav-text">
+                  Boost Packages
+               </span>
+           </a>
+         
+       </li>
+       <li>
+           <a href="#">
+            
+
+            <i class="fa fa-custom fa-arrow-right" aria-hidden="true"></i>
+
+
+               <span class="nav-text">
+                  Promo
+               </span>
+           </a>
+         
+       </li>
+       <li>
+           <a href="#">
+            
+
+            <i class="fa fa-custom  fa-bar-chart" aria-hidden="true"></i>
+
+
+               <span class="nav-text">
+                  Reports
+               </span>
+           </a>
+         
+       </li>
+       <li>
+           <a href="#">
+            
+
+            <i class="fa  fa-custom fa-info-circle" aria-hidden="true"></i>
+
+
+
+               <span class="nav-text">
+                 Drafts
+               </span>
+           </a>
+         
+       </li>
+       <li>
+           <a href="#">
+            
+
+            <i class="fa fa-custom fa-building-o" aria-hidden="true"></i>
+
+
+
+               <span class="nav-text">
+                  Reports
+               </span>
+           </a>
+         
+       </li>
+ 
+   </ul>
+
+
+</nav>
+<div id="wrapper">
+   <nav class="navbar navbar-light navbar-light-custom ">
+   <div class="navbar navbar-light  ">
+      <a class="navbar-brand navbar-brand-custom ml-5">Trending Destinations <i class="fa fa-chevron-down" aria-hidden="true"></i>
+       </a>
+      <ul class="d-flex top-bar-item">
+         
+         <li>Trip Tital</li>
+         <div class="divider"></div>
+         <li>Trip Tital</li>
+         <div class="divider"></div>
+         <li>Trip Tital</li>
+         <div class="divider"></div>
+         <li>Trip Tital</li>
+         <div class="divider"></div>
+         <li>Trip Tital</li>
+         <div class="divider"></div>
+         <li>Trip Tital</li>
+      </ul>
+      </div>
+
+      <a href="#" class="notification">
+         <i class="fa fa-bell-o" aria-hidden="true"></i>
+         <span class="badge">3</span>
+       </a>
+      <div class="media profile dropdown">
+         <img src="img/dashboard/logo/profile.png" class="rounded-circle mr-3" alt="Sample Image">
+         <div class="media-body" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true">
+             <span class="mt-4">Jhon Carter </span>
+             <p class=""><span class="verified">Verified </span><i class="fa fa-chevron-down ml-1" aria-hidden="true"></i>
+             </p>
+         </div>
+         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+     </div>
+     
+    
+    </nav>
+  <!-- /#sidebar-wrapper -->
+  <!-- Page Content -->
+  <div id="page-content-wrapper">
+     <div class="container-fluid xyz">
+      <div class="row">
+         <div class="col-md-12">
+       <!-- <div class="">
+           <div class="statboxd ">
+            <div class="Deals-cards">
+               <div class="featured-tag12">
+                 <span class="left-corner12" style="z-index: -1;"></span>
+                 <span class="right-corner12"></span>
+                 <div class="featured12">
+                   <span>Upcoming Trips</span>
+                 </div>
+               </div>
+               <div class="featured-tag2">
+                 <span class="left-corner2" style="z-index: -1;"></span>
+                 <span class="right-corner2"></span>
+                 <div class="featured2">
+                   <p>10% OFF</p>
+                 </div>
+               </div>
+               <div class="featured-tag4">
+                 <span class="left-corner4" style="z-index: -1;"></span>
+                 <span class="right-corner4"></span>
+                 <div class="featured4 d-flex justify-content-between ">
+                   <p class="pl-2 pt-1"> <i class="fa fa-clock-o" aria-hidden="true"></i>
+                     1 Day</p>
+                   <p class="pl-2 pt-1"> Rs <strong>3250/-</strong></p>
+                   <!-- <p class="pr-2 pt-1 per-person-btn">Per Person</p> -->
+                   <!-- <button type="button" class="btn pt-1">
+                     <span class="badge btn-yellow">per person</span>
+                   </button>
+                 </div>
+               </div>
+               <div class="featured-tag3">
+                 <span class="left-corner3" style="z-index: -1;"></span>
+                 <span class="right-corner3"></span>
+                 <div class="featured3 featured-bar-text  d-flex justify-content-between">
+                   <p class="pl-2 pt-2"> <i class="fa fa-calendar-o" aria-hidden="true"></i>
+                      14-12-2020</p>
+                   <p class="pl-2 pt-2"> <i class="fa fa-map-marker" aria-hidden="true"></i>
+                      From Karachi</p>
+                   <p class="pr-2 pt-2"> <i class="fa fa-map-marker" aria-hidden="true"></i>
+                     To Lahore</p>
+                 </div>
+               </div>
+               
+                 <div class="img">
+                   <a href="#" class="">
+                       <img src="img/dashboard/cards/cards1.png" class="media-object media-object-image-second rounded-top rounded m-2" alt="Sample Image">
+                 
+                     </a>
+                
+                     <p class="deals-text ml-3 mr-3"></p>
+                 
+                 </div> -->
+                 <!-- <div class="ml-2 card-bar-top text-center">
+                <div class=" d-flex">
+                  <div class="btn">Per Person</div>
+                  <div class="btn">Per Person</div>
+                  <div class="btn">Per Person</div>
+                </div>
+               </div>
+                 <div class="ml-2 card-bar text-center">
+                <div class=" d-flex">
+                  <div class="btn">Per Person</div>
+                  <div class="btn">Per Person</div>
+                  <div class="btn">Per Person</div>
+                </div>
+               </div> -->
+                 <!-- </div>
+              
+           </div>
+           <div class="statboxd ">
+            <div class="Deals-cards">
+               <div class="featured-tag12">
+                 <span class="left-corner12" style="z-index: -1;"></span>
+                 <span class="right-corner12"></span>
+                 <div class="featured12">
+                   <span>Upcoming Trips</span>
+                 </div>
+               </div>
+               <div class="featured-tag2">
+                 <span class="left-corner2" style="z-index: -1;"></span>
+                 <span class="right-corner2"></span>
+                 <div class="featured2">
+                   <p>10% OFF</p>
+                 </div>
+               </div>
+               <div class="featured-tag4">
+                 <span class="left-corner4" style="z-index: -1;"></span>
+                 <span class="right-corner4"></span>
+                 <div class="featured4 d-flex justify-content-between ">
+                   <p class="pl-2 pt-1"> <i class="fa fa-clock-o" aria-hidden="true"></i>
+                     1 Day</p>
+                   <p class="pl-2 pt-1"> Rs <strong>3250/-</strong></p>
+                   <!-- <p class="pr-2 pt-1 per-person-btn">Per Person</p> -->
+                   <!-- <button type="button" class="btn pt-1">
+                     <span class="badge btn-yellow">per person</span>
+                   </button>
+                 </div>
+               </div>
+               <div class="featured-tag3">
+                 <span class="left-corner3" style="z-index: -1;"></span>
+                 <span class="right-corner3"></span>
+                 <div class="featured3 featured-bar-text  d-flex justify-content-between">
+                   <p class="pl-2 pt-2"> <i class="fa fa-calendar-o" aria-hidden="true"></i>
+                      14-12-2020</p>
+                   <p class="pl-2 pt-2"> <i class="fa fa-map-marker" aria-hidden="true"></i>
+                      From Karachi</p>
+                   <p class="pr-2 pt-2"> <i class="fa fa-map-marker" aria-hidden="true"></i>
+                     To Lahore</p>
+                 </div>
+               </div>
+               
+                 <div class="img">
+                   <a href="#" class="">
+                       <img src="img/dashboard/cards/cards1.png" class="media-object media-object-image-second rounded-top rounded m-2" alt="Sample Image">
+                 
+                     </a>
+                
+                     <p class="deals-text ml-3 mr-3"></p>
+                 
+                 </div>
+      
+                 </div>
+              
+           </div> -->
+           <!-- <div class="statbox statHDD">
+             <div class="container-custom">
+                <span class="statReadings">How to Measure Sale Progress</span> -->
+             <!-- <canvas id="myChart" width="200" height="100"></canvas> -->
+             <!-- </div>
+           
+             <span class="labelReading">HDD</span>
+           </div> -->
+           <!-- <div class="statbox statHDD p-3">
+              <h6>How to Post a Trip</h6>
+             <div class="box-container text-center m-3">
+           <img src="img/dashboard/logo/download.png" alt="">
+             </div>
+             <!-- <span class="statReading">93.023</span> -->
+             <!-- <div class="box-bottom1 d-flex justify-content-between">
+               
+                <div>
+                 <h3>3520/-</h3>
+                 <h6>Per Person</h6>
+                </div>
+                <div class="arrow-div">
+              <img src="img/dashboard/logo/arrow.png" alt="">
+                </div>
+
+             </div>
+           </div>
+           <div class="statbox statCDD p-3">
+              <h6>How to Measure Sale Progress</h6>
+             <div class="box-container text-center m-3">
+           <img src="img/dashboard/logo/download.png" alt="">
+             </div>
+             <!-- <span class="statReading">93.023</span> -->
+             <!-- <div class="box-bottom1 d-flex justify-content-between">
+               
+                <div>
+                 <h3>3520/-</h3>
+                 <h6>Per Person</h6>
+                </div>
+                <div class="arrow-div">
+              <img src="img/dashboard/logo/arrow.png" alt="">
+                </div>
+
+             </div>
+           </div>
+         
+         </div>    -->
+       </div>
+     </div>
+     <div class="row">
+      <div class="col-md-12">
+    <div class="custom-row">
+        <div class="statboxd ">
+         <div class="Deals-cards">
+            <div class="featured-tag12">
+              <span class="left-corner12" style="z-index: -1;"></span>
+              <span class="right-corner12"></span>
+              <div class="featured12">
+                <span>Upcoming Trips</span>
+              </div>
+            </div>
+            <div class="featured-tag2">
+              <span class="left-corner2" style="z-index: -1;"></span>
+              <span class="right-corner2"></span>
+              <div class="featured2">
+                <p>10% OFF</p>
+              </div>
+            </div>
+            <div class="featured-tag4">
+              <span class="left-corner4" style="z-index: -1;"></span>
+              <span class="right-corner4"></span>
+              <div class="featured4 d-flex justify-content-between ">
+                <p class="pl-2 pt-1"> <i class="fa fa-clock-o" aria-hidden="true"></i>
+                  1 Day</p>
+                <p class="pl-2 pt-1"> Rs <strong>3250/-</strong></p>
+                <!-- <p class="pr-2 pt-1 per-person-btn">Per Person</p> -->
+                <button type="button" class="btn pt-1">
+                  <span class="badge btn-yellow">per person</span>
+                </button>
+              </div>
+            </div>
+            <div class="featured-tag3">
+              <span class="left-corner3" style="z-index: -1;"></span>
+              <span class="right-corner3"></span>
+              <div class="featured3 featured-bar-text  d-flex justify-content-between">
+                <p class="pl-2 pt-2"> <i class="fa fa-calendar-o" aria-hidden="true"></i>
+                   14-12-2020</p>
+                <p class="pl-2 pt-2"> <i class="fa fa-map-marker" aria-hidden="true"></i>
+                   From Karachi</p>
+                <p class="pr-2 pt-2"> <i class="fa fa-map-marker" aria-hidden="true"></i>
+                  To Lahore</p>
+              </div>
+            </div>
+            
+              <div class="img">
+                <a href="#" class="">
+                    <img src="img/dashboard/cards/cards1.png" class="media-object media-object-image-second rounded-top rounded m-2" alt="Sample Image">
+              
+                  </a>
+             
+                  <p class="deals-text ml-3 mr-3"></p>
+              
+              </div>
+              <!-- <div class="ml-2 card-bar-top text-center">
+             <div class=" d-flex">
+               <div class="btn">Per Person</div>
+               <div class="btn">Per Person</div>
+               <div class="btn">Per Person</div>
+             </div>
+            </div>
+              <div class="ml-2 card-bar text-center">
+             <div class=" d-flex">
+               <div class="btn">Per Person</div>
+               <div class="btn">Per Person</div>
+               <div class="btn">Per Person</div>
+             </div>
+            </div> -->
+              </div>
+           
+        </div>
+        <div class="statboxd ">
+         <div class="Deals-cards">
+            <div class="featured-tag12">
+              <span class="left-corner12" style="z-index: -1;"></span>
+              <span class="right-corner12"></span>
+              <div class="featured12">
+                <span>Upcoming Trips</span>
+              </div>
+            </div>
+            <div class="featured-tag2">
+              <span class="left-corner2" style="z-index: -1;"></span>
+              <span class="right-corner2"></span>
+              <div class="featured2">
+                <p>10% OFF</p>
+              </div>
+            </div>
+            <div class="featured-tag4">
+              <span class="left-corner4" style="z-index: -1;"></span>
+              <span class="right-corner4"></span>
+              <div class="featured4 d-flex justify-content-between ">
+                <p class="pl-2 pt-1"> <i class="fa fa-clock-o" aria-hidden="true"></i>
+                  1 Day</p>
+                <p class="pl-2 pt-1"> Rs <strong>3250/-</strong></p>
+                <!-- <p class="pr-2 pt-1 per-person-btn">Per Person</p> -->
+                <button type="button" class="btn pt-1">
+                  <span class="badge btn-yellow">per person</span>
+                </button>
+              </div>
+            </div>
+            <div class="featured-tag3">
+              <span class="left-corner3" style="z-index: -1;"></span>
+              <span class="right-corner3"></span>
+              <div class="featured3 featured-bar-text  d-flex justify-content-between">
+                <p class="pl-2 pt-2"> <i class="fa fa-calendar-o" aria-hidden="true"></i>
+                   14-12-2020</p>
+                <p class="pl-2 pt-2"> <i class="fa fa-map-marker" aria-hidden="true"></i>
+                   From Karachi</p>
+                <p class="pr-2 pt-2"> <i class="fa fa-map-marker" aria-hidden="true"></i>
+                  To Lahore</p>
+              </div>
+            </div>
+            
+              <div class="img">
+                <a href="#" class="">
+                    <img src="img/dashboard/cards/cards1.png" class="media-object media-object-image-second rounded-top rounded m-2" alt="Sample Image">
+              
+                  </a>
+             
+                  <p class="deals-text ml-3 mr-3"></p>
+              
+              </div>
+   
+              </div>
+           
+        </div>
+        <!-- <div class="statbox statHDD">
+          <div class="container-custom">
+             <span class="statReadings">How to Measure Sale Progress</span> -->
+          <!-- <canvas id="myChart" width="200" height="100"></canvas> -->
+          <!-- </div>
+        
+          <span class="labelReading">HDD</span>
+        </div> -->
+        <div class="statbox statHDD mt-2 p-3">
+           <h6>How to Post a Trip</h6>
+          <div class="box-container text-center p-1 m-2">
+        <img src="img/dashboard/logo/download.png" alt="">
+          </div>
+          <!-- <span class="statReading">93.023</span> -->
+          <div class="box-bottom1 d-flex justify-content-between">
+            
+             <div>
+              <h3>3520/-</h3>
+              <h6>Per Person</h6>
+             </div>
+             <div class="arrow-div">
+           <img src="img/dashboard/logo/arrow.png" alt="">
+             </div>
+
+          </div>
+        </div>
+        <div class="statbox statCDD mt-2 p-3">
+           <h6>How to Measure Sale Progress</h6>
+          <div class="box-container text-center p-1 m-2">
+        <img src="img/dashboard/logo/download.png" alt="">
+          </div>
+          <!-- <span class="statReading">93.023</span> -->
+          <div class="box-bottom1 d-flex justify-content-between">
+            
+             <div>
+              <h3>3520/-</h3>
+              <h6>Per Person</h6>
+             </div>
+             <div class="arrow-div">
+           <img src="img/dashboard/logo/arrow.png" alt="">
+             </div>
+
+          </div>
+        </div>
+      
+      </div>
+    </div>
+  </div>
+     <div class="Portfolio-Performance-bar   justify-content-between">
+          <!-- <div class="bage">
+            <h5>Portfolio Performance</h5>
+          </div> -->
+          <h2> <span class="badge badge-secondary">Portfolio Performance</span></h2>
+          <div class="media skills-profile">
+            <img src="img/dashboard/objects/outline-beenhere-24px.png" class="rounded-circle mr-3" alt="Sample Image">
+            <div class="media-body" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true">
+                <strong class="mt-4">Total Bookings</strong>
+                <p class=""><span class="verified">17 </span>
+                </p>
+            </div>
+           
+        </div>
+          <div class="media skills-eyes">
+            <img src="img/dashboard/objects/eyes.png" class="rounded-circle mr-3" alt="Sample Image">
+            <div class="media-body" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true">
+                <strong class="mt-4">Total Bookings</strong>
+                <p class=""><span class="verified">17 </span>
+                </p>
+            </div>
+           
+        </div>
+          <div class="media skills-buss">
+            <img src="img/dashboard/objects/bus.png" class="rounded-circle mr-3" alt="Sample Image">
+            <div class="media-body" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true">
+                <strong class="mt-4">Total Bookings</strong>
+                <p class=""><span class="verified">17 </span>
+                </p>
+            </div>
+           
+        </div>
+          <div class="media skills-busstime">
+            <img src="img/dashboard/objects/busss.png" class="rounded-circle mr-3" alt="Sample Image">
+            <div class="media-body" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true">
+                <strong class="mt-4">Total Bookings</strong>
+                <p class=""><span class="verified">17 </span>
+                </p>
+            </div>
+           
+        </div>
+          <div class="media skills-progress">
+            <img src="img/dashboard/objects/ggg.png" class="rounded-circle mr-3" alt="Sample Image">
+            <div class="media-body" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true">
+                <strong class="mt-4">Total Bookings</strong>
+                <p class=""><span class="verified">17 </span>
+                </p>
+            </div>
+           
+        </div>
+          <div class="media skills-time">
+            <img src="img/dashboard/objects/ttt.png" class="rounded-circle mr-3" alt="Sample Image">
+            <div class="media-body" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true">
+                <strong class="mt-4">Total Bookings</strong>
+                <p class=""><span class="verified">17 </span>
+                </p>
+            </div>
+           
+        </div>
+     </div>
+     </div>
+
+<div class="table-area">
+   <div class="row justify-content-between">
+      <div class="col-12 col-md-2 ">
+         <h5>Sale Progress</h5>
+         <!-- <div data-chart></div> -->
+      </div>
+      <div class="col-12 col-md-5 col-sm-12 col-xs-12">
+         <div class="inner-table">
+         <h5>Recent Viewed Trips by Travelers</h5>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Day</th>
+                <th scope="col">Article Name</th>
+                <th scope="col">Author</th>
+                <th scope="col">Words</th>
+                <th scope="col">Shares</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>Bootstrap 4 CDN and Starter Template</td>
+                <td>Cristina</td>
+                <td>913</td>
+                <td>2.846</td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>Bootstrap Grid 4 Tutorial and Examples</td>
+                <td>Cristina</td>
+                <td>1.434</td>
+                <td>3.417</td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>Bootstrap Grid 4 Tutorial and Examples</td>
+                <td>Cristina</td>
+                <td>1.434</td>
+                <td>3.417</td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>Bootstrap Grid 4 Tutorial and Examples</td>
+                <td>Cristina</td>
+                <td>1.434</td>
+                <td>3.417</td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>Bootstrap Grid 4 Tutorial and Examples</td>
+                <td>Cristina</td>
+                <td>1.434</td>
+                <td>3.417</td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>Bootstrap Grid 4 Tutorial and Examples</td>
+                <td>Cristina</td>
+                <td>1.434</td>
+                <td>3.417</td>
+              </tr>
+            </tbody>
+          </table>     
+        </div>
+      </div>
+      </div>
+    </div>
+</div>
+  </div>
+  <!-- /#page-content-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+<!-- jQuery -->
+
+
+<!-- -----------------------------navbar------------------ -->
+<!-- Footer -->
+<footer class="page-footer font-small bg-dardk pt-1">
+
+
+
+   <!-- Footer Links -->
+   <div class="container-fluid text-center text-md-left mt-5">
+ 
+     <!-- Grid row -->
+     <div class="row mt-3">
+ 
+       <!-- Grid column -->
+       <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-2">
+ 
+
+         
+   
+        
+ 
+       </div>
+       <!-- Grid column -->
+ 
+       <!-- Grid column -->
+       <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+ 
+  
+  
+ 
+       </div>
+       <!-- Grid column -->
+ 
+       <!-- Grid column -->
+       <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+ 
+         <!-- Links -->
+         <h6 class="text-uppercase text-white font-weight-bold mt-3">OPERATOR</h6>
+       
+         <a href="">Tour Packages Kashmir </a><br>
+         
+        
+       
+         <a href="#!">Tour Packages Kashmir </a><br>
+     
+         <a href="#!">  Tour Packages Swat </a><br>
+   
+ 
+       </div>
+       <!-- Grid column -->
+ 
+       <!-- Grid column -->
+       <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+ 
+         <!-- Links --><h6 class="text-uppercase text-white font-weight-bold mt-3">OPERATOR</h6>
+      
+
+  
+
+         
+     <a href="#!"><img src="img/slider/a1.png" alt=""></a>
+     <a href="#!"><img src="img/slider/a2.png" alt=""></a>
+
+   
+       <div class="social-icons mt-4 ">
+   <a href="#">      <i class="fa fa-twitter p-1 " aria-hidden="true"></i></a>
+   <a href="#">       
+      <i class="fa fa-snapchat-ghost" aria-hidden="true"></i>
+
+   </a>
+   <a href="#">              <i class="fa fa-whatsapp p-1" aria-hidden="true"></i>
+   </a>
+   <a href="#">              <i class="fa fa-facebook p-1 pl-2 pr-2" aria-hidden="true"></i>
+   </a>
+ 
+         </div>
+ 
+       </div>
+       <!-- Grid column -->
+ 
+     </div>
+     <!-- Grid row -->
+ 
+   </div>
+   <!-- Footer Links -->
+ 
+ 
+ 
+ </footer>
+ <!-- Footer -->
+
+
+
+
+
+
+
+
+    
+
+<script src="js/nav.js"></script>
+<script>
+   var ctx = document.getElementById("myChart");
+var numDataPoints = 20;
+var dataset = Array.apply(null, Array(numDataPoints)).map(function() {
+  return Math.floor(Math.random() * 100);
+});
+
+var data = {
+  labels: Array.apply(null, Array(numDataPoints)).map(function() {
+    return '';
+  }),
+  datasets: [{
+    data: dataset,
+    pointRadius: 0,
+    borderWidth: 2,
+    borderColor: 'white',
+    backgroundColor: 'transparent',
+  }]
+};
+
+new Chart(ctx, {
+  type: 'line',
+  data: data,
+  options: {
+    tooltips: {
+      enabled: false,
+    },
+    legend: {
+      display: false,
+    },
+    pointDot: false,
+    scales: {
+      xAxes: [{
+        display: false,
+      }],
+      yAxes: [{
+        display: false,
+      }],
+    }
+  }
+});   
+
+
+
+</script>
+</body>
+</html>
